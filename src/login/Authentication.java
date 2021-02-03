@@ -1,10 +1,12 @@
-package user;
+package login;
 
 import connection.Connect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import client.ClientScreen;
+import admin.AdminScreen;
 
 public class Authentication extends javax.swing.JFrame {
 
@@ -32,7 +34,21 @@ public class Authentication extends javax.swing.JFrame {
             response = templateQuery.executeQuery();
             
             if(response.next()){
-                System.out.println("logou");
+                if(response.getString("user_type").equals("ADMIN")) {
+                    
+                AdminScreen screen = new AdminScreen();
+                screen.setVisible(true);
+                this.dispose();
+                connection.close();
+                
+                } else {
+                    
+                ClientScreen screen = new ClientScreen();
+                screen.setVisible(true);
+                this.dispose();
+                connection.close();
+                
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Erro na autenticação !", "Erro", JOptionPane.ERROR_MESSAGE);
             }
