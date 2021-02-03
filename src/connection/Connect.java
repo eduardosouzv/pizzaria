@@ -7,7 +7,7 @@ public class Connect {
     
     public static Connection Database(){        
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/mydb";
+        String url = "jdbc:mysql://localhost:3306/pizzaria";
         String user = "root";
         String password = "root";
         
