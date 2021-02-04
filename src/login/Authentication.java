@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import client.ClientScreen;
 import admin.AdminScreen;
+import login.Register;
 
 public class Authentication extends javax.swing.JFrame {
 
@@ -56,6 +57,12 @@ public class Authentication extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
+    public void register(){
+        Register screen = new Register();
+        screen.setVisible(true);
+        this.dispose();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -67,6 +74,7 @@ public class Authentication extends javax.swing.JFrame {
         buttonLogin = new javax.swing.JButton();
         title = new javax.swing.JLabel();
         textPassword = new javax.swing.JPasswordField();
+        buttonRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Autenticação");
@@ -93,6 +101,13 @@ public class Authentication extends javax.swing.JFrame {
         title.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/pizza.png"))); // NOI18N
         title.setText("PIZZARIA");
 
+        buttonRegister.setText("Registrar");
+        buttonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRegisterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,7 +115,10 @@ public class Authentication extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(buttonLogin)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonLogin))
                     .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPassword, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelUser, javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +140,9 @@ public class Authentication extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(buttonLogin)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonLogin)
+                    .addComponent(buttonRegister))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -138,6 +158,11 @@ public class Authentication extends javax.swing.JFrame {
         // TODO add your handling code here:
         login();
     }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
+        // TODO add your handling code here:
+        register();
+    }//GEN-LAST:event_buttonRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +201,7 @@ public class Authentication extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogin;
+    private javax.swing.JButton buttonRegister;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelUser;
     private javax.swing.JPasswordField textPassword;
