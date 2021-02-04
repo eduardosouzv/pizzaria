@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import login.Authentication;
 
 public class Register extends javax.swing.JFrame {
-    
+
     Connection connection = null;
     PreparedStatement templateQuery = null;
 
@@ -15,29 +15,52 @@ public class Register extends javax.swing.JFrame {
         initComponents();
         connection = Connect.Database();
     }
-    
-    public void register(){
-        
+
+    public boolean isInt(String s) {
         try {
-            templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,'CLIENT',?,?,?,?)");
-            templateQuery.setString(1, textUser.getText());
-            templateQuery.setString(2, String.valueOf(textPassword.getPassword()));
-            
-            templateQuery.setString(3, textStreet.getText());
-            templateQuery.setString(4, textNumber.getText());
-            templateQuery.setString(5, textDistrict.getText());
-            templateQuery.setString(6, textCity.getText());
-            
-            int response = templateQuery.executeUpdate();
-            if (response > 0) {
-                JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro no cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
+            Integer.parseInt(s);
+            return true;
         } catch (Exception e) {
-            System.out.println(e);
+            return false;
         }
-        
+    }
+
+    public void register() {
+
+        if (textUser.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Nome de usuário em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (String.valueOf(textPassword.getPassword()).length() == 0) {
+            JOptionPane.showMessageDialog(null, "Senha em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (textStreet.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Rua em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (!isInt(textNumber.getText())) {
+            JOptionPane.showMessageDialog(null, "Número de endereço em branco ou inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (textDistrict.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Bairro em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (textCity.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Cidade em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,'CLIENT',?,?,?,?)");
+                templateQuery.setString(1, textUser.getText());
+                templateQuery.setString(2, String.valueOf(textPassword.getPassword()));
+
+                templateQuery.setString(3, textStreet.getText());
+                templateQuery.setString(4, textNumber.getText());
+                templateQuery.setString(5, textDistrict.getText());
+                templateQuery.setString(6, textCity.getText());
+
+                int response = templateQuery.executeUpdate();
+                if (response > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Erro no cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
     }
 
     @SuppressWarnings("unchecked")
