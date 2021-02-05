@@ -1,31 +1,15 @@
 package login;
 
-import db.Connect;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import customer.ClientScreen;
 import admin.AdminScreen;
 import db.UserDB;
-import login.Register;
 import models.User;
 
 public class Authentication extends javax.swing.JFrame {
 
-    Connection connection = null;
-    PreparedStatement templateQuery = null;
-    ResultSet response = null;
-
     public Authentication() {
         initComponents();
-        connection = Connect.Database();
-
-        if (connection == null) {
-            System.out.println("err");
-        } else {
-            System.out.println("success");
-        }
     }
 
     public void login() {
