@@ -1,13 +1,15 @@
 package login;
 
-import connection.Connect;
+import db.Connect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import client.ClientScreen;
+import customer.ClientScreen;
 import admin.AdminScreen;
+import db.UserDB;
 import login.Register;
+import models.User;
 
 public class Authentication extends javax.swing.JFrame {
 
@@ -18,47 +20,33 @@ public class Authentication extends javax.swing.JFrame {
     public Authentication() {
         initComponents();
         connection = Connect.Database();
-        
-        if(connection == null) {
+
+        if (connection == null) {
             System.out.println("err");
-        } else{
+        } else {
             System.out.println("success");
         }
     }
-    
-    public void login(){
+
+    public void login() {
         try {
-            templateQuery = connection.prepareStatement("SELECT * FROM users WHERE user = ? AND password = ?");
-            templateQuery.setString(1, textUser.getText());
-            templateQuery.setString(2, String.valueOf(textPassword.getPassword()));
-            
-            response = templateQuery.executeQuery();
-            
-            if(response.next()){
-                if(response.getString("user_type").equals("ADMIN")) {
-                    
+            UserDB userdb = new UserDB();
+            User user = userdb.authenticate(textUser.getText(), String.valueOf(textPassword.getPassword()));
+            if (user.user_type.equals("ADMIN")) {
                 AdminScreen screen = new AdminScreen();
                 screen.setVisible(true);
                 this.dispose();
-                connection.close();
-                
-                } else {
-                    
+            } else {
                 ClientScreen screen = new ClientScreen();
                 screen.setVisible(true);
                 this.dispose();
-                connection.close();
-                
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro na autenticação !", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro na autenticação !", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public void register(){
+
+    public void register() {
         Register screen = new Register();
         screen.setVisible(true);
         this.dispose();
