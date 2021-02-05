@@ -1,10 +1,12 @@
 package login;
 
-import connection.Connect;
+import db.Connect;
+import db.UserDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import login.Authentication;
+import models.User;
 
 public class Register extends javax.swing.JFrame {
 
@@ -41,23 +43,12 @@ public class Register extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cidade em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,'CLIENT',?,?,?,?)");
-                templateQuery.setString(1, textUser.getText());
-                templateQuery.setString(2, String.valueOf(textPassword.getPassword()));
-
-                templateQuery.setString(3, textStreet.getText());
-                templateQuery.setString(4, textNumber.getText());
-                templateQuery.setString(5, textDistrict.getText());
-                templateQuery.setString(6, textCity.getText());
-
-                int response = templateQuery.executeUpdate();
-                if (response > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Erro no cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
-                }
+                User user = new User(textUser.getText(), String.valueOf(textPassword.getPassword()), "CLIENT", textStreet.getText(), Integer.valueOf(textNumber.getText()), textDistrict.getText(), textCity.getText());
+                UserDB userdb = new UserDB();
+                userdb.addUser(user);
+                JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
-                System.out.println(e);
+                JOptionPane.showMessageDialog(null, "Erro no cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
 
