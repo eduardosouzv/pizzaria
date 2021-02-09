@@ -13,11 +13,11 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
     public ManageOrders() {
         initComponents();
         setOrdersList();
+        setClientNameLabel("2");
         setDrinkListFromId("1");
         pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Pizza 1", "Pizza 2", "Pizza 3"}));
 
         labelPizzaSize.setText("Grande");
-        clientName.setText("Eduardo");
 
         pizzasTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
@@ -44,7 +44,6 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
     public void setOrdersList() {
@@ -55,6 +54,15 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
                 orderList.addElement("Pedido " + id);
             });
             listBox.setModel(orderList);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void setClientNameLabel(String id){
+        try {
+            OrdersDB orders = new OrdersDB();
+            clientName.setText(orders.getNameFromOrder(id));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -172,6 +180,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         labelClient.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelClient.setText("Cliente");
 
+        clientName.setText("zxc");
         clientName.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,9 +223,9 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titlePedidos)
-                    .addComponent(labelInfosOrder))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfosOrder, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titlePedidos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
