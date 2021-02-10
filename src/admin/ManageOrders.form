@@ -249,6 +249,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Entregar Pedido Selecionado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deliverButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelPizzaSelector">
       <Properties>
@@ -266,6 +269,9 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pizzaSelectorActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelSize">
       <Properties>

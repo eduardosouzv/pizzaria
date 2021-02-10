@@ -2,6 +2,8 @@ package admin;
 
 import db.DrinksDB;
 import db.OrdersDB;
+import db.PizzaDB;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
@@ -15,21 +17,47 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         setOrdersList();
         setClientNameLabel("2");
         setDrinkListFromId("1");
-        pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Pizza 1", "Pizza 2", "Pizza 3"}));
+        setSelectPizzaList("1");
+        getSelectedPizza("2");
+        setLabelPizzaSize("2");
+        pizzaSelector.addActionListener((ActionEvent e) -> {
+            System.out.println("a");
+        });
+    }
 
-        labelPizzaSize.setText("Grande");
+    public void setSelectPizzaList(String id) {
+        try {
+            List<String> pizzas = new PizzaDB().getAllPizzasIdFromOrder(id);
+            for (String pizza : pizzas) {
+                System.out.println(pizza);
+                pizzaSelector.addItem("Pizza " + pizza);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
-        pizzasTable.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
-                    {"calabresa"},
-                    {"frango"}
-                },
-                new String[]{
-                    "Sabores"
-                }
-        ));
-        jScrollPane1.setViewportView(pizzasTable);
+    public void setLabelPizzaSize(String id) {
+        try {
+            List<String> size = new PizzaDB().getPizzaSizeFromId(id);
+            labelPizzaSize.setText(size.toString().replace("[", "").replace("]", ""));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
+    public void getSelectedPizza(String id) {
+        try {
+            List<String> flavours = new PizzaDB().getSelectedPizzaFromId(id);
+            String[] columnName = {"Sabores"};
+            DefaultTableModel model = new DefaultTableModel(columnName, 0);
+            for (String flavour : flavours) {
+                model.addRow(new String[]{flavour});
+            }
+            pizzasTable.setModel(model);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public void setDrinkListFromId(String id) {
@@ -38,7 +66,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             String[] columnName = {"Bebidas", "Valor"};
             DefaultTableModel model = new DefaultTableModel(columnName, 0);
             for (Drink drink : drinks) {
-                model.addRow(new Object[]{ drink.name, drink.value } );
+                model.addRow(new Object[]{drink.name, drink.value});
             }
             drinkTable.setModel(model);
         } catch (Exception e) {
@@ -58,8 +86,8 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             System.out.println(e);
         }
     }
-    
-    public void setClientNameLabel(String id){
+
+    public void setClientNameLabel(String id) {
         try {
             OrdersDB orders = new OrdersDB();
             clientName.setText(orders.getNameFromOrder(id));
@@ -169,10 +197,20 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         });
 
         deliverButton.setText("Entregar Pedido Selecionado");
+        deliverButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deliverButtonActionPerformed(evt);
+            }
+        });
 
         labelPizzaSelector.setText("Inforamações pizza:");
 
-        pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        pizzaSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pizzaSelectorActionPerformed(evt);
+            }
+        });
 
         labelSize.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelSize.setText("Tamanho:");
@@ -263,6 +301,14 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
     private void consultButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultButtonActionPerformed
         getSelectedOrder();
     }//GEN-LAST:event_consultButtonActionPerformed
+
+    private void deliverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliverButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deliverButtonActionPerformed
+
+    private void pizzaSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaSelectorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pizzaSelectorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
