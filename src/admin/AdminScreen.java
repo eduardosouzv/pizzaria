@@ -5,6 +5,8 @@
  */
 package admin;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author souza
@@ -27,23 +29,94 @@ public class AdminScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ScreenPanel = new javax.swing.JDesktopPane();
+        menuBar = new javax.swing.JMenuBar();
+        menuPedidos = new javax.swing.JMenu();
+        menuProgressOrders = new javax.swing.JMenuItem();
+        menuDelivered = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Admin");
+        setResizable(false);
+
+        javax.swing.GroupLayout ScreenPanelLayout = new javax.swing.GroupLayout(ScreenPanel);
+        ScreenPanel.setLayout(ScreenPanelLayout);
+        ScreenPanelLayout.setHorizontalGroup(
+            ScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 660, Short.MAX_VALUE)
+        );
+        ScreenPanelLayout.setVerticalGroup(
+            ScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 344, Short.MAX_VALUE)
+        );
+
+        menuPedidos.setText("Pedidos");
+        menuPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPedidosActionPerformed(evt);
+            }
+        });
+
+        menuProgressOrders.setText("Em andamento");
+        menuProgressOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuProgressOrdersActionPerformed(evt);
+            }
+        });
+        menuPedidos.add(menuProgressOrders);
+
+        menuDelivered.setText("Entregues");
+        menuDelivered.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuDeliveredActionPerformed(evt);
+            }
+        });
+        menuPedidos.add(menuDelivered);
+
+        menuBar.add(menuPedidos);
+
+        jMenu4.setText("Edit");
+        menuBar.add(jMenu4);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(ScreenPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(ScreenPanel)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void menuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPedidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuPedidosActionPerformed
+
+    private void menuProgressOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProgressOrdersActionPerformed
+        // TODO add your handling code here:
+        ManageOrders managementScreen = new ManageOrders();
+        managementScreen.setVisible(true);
+        ScreenPanel.add(managementScreen);
+    }//GEN-LAST:event_menuProgressOrdersActionPerformed
+
+    private void menuDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDeliveredActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuDeliveredActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane ScreenPanel;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuDelivered;
+    private javax.swing.JMenu menuPedidos;
+    private javax.swing.JMenuItem menuProgressOrders;
     // End of variables declaration//GEN-END:variables
 }
