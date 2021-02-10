@@ -6,6 +6,7 @@ import db.PizzaDB;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 import models.Drink;
@@ -15,23 +16,30 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
     public ManageOrders() {
         initComponents();
         setOrdersList();
-        setClientNameLabel("2");
-        setDrinkListFromId("1");
-        setSelectPizzaList("1");
-        getSelectedPizza("2");
-        setLabelPizzaSize("2");
+        pizzaSelector.setModel(new DefaultComboBoxModel());
+        
         pizzaSelector.addActionListener((ActionEvent e) -> {
-            System.out.println("a");
+            String res = (String) pizzaSelector.getSelectedItem();
+            String[] idArray = res.split(" ");
+            String id = idArray[1];
+            System.out.println(id);
+            getSelectedPizza(id);
+            setLabelPizzaSize(id);
+            
+            
         });
     }
 
     public void setSelectPizzaList(String id) {
         try {
-            List<String> pizzas = new PizzaDB().getAllPizzasIdFromOrder(id);
-            for (String pizza : pizzas) {
-                System.out.println(pizza);
-                pizzaSelector.addItem("Pizza " + pizza);
+            List<String> pizzasFromDB = new PizzaDB().getAllPizzasIdFromOrder(id);
+            List<String> pizzas = new ArrayList<>();
+            for (String pizza : pizzasFromDB) {
+                pizzas.add("Pizza " + pizza);
             }
+            pizzaSelector.setModel(new DefaultComboBoxModel(pizzas.toArray()));
+            getSelectedPizza(pizzasFromDB.get(0));
+            setLabelPizzaSize(pizzasFromDB.get(0));
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -100,7 +108,10 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         String idArray[] = new String[3];
         String res = (String) listBox.getSelectedValue();
         idArray = res.split(" ");
-        int id = Integer.parseInt(idArray[1]);
+        String id = idArray[1];
+        setClientNameLabel(id);
+        setDrinkListFromId(id);
+        setSelectPizzaList(id);
 
     }
 
@@ -205,7 +216,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
 
         labelPizzaSelector.setText("Inforamações pizza:");
 
-        pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] {}));
+        pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pizzaSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pizzaSelectorActionPerformed(evt);
@@ -218,7 +229,6 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         labelClient.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelClient.setText("Cliente");
 
-        clientName.setText("zxc");
         clientName.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
