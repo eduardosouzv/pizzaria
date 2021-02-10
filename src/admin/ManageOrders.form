@@ -81,7 +81,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="28" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -255,7 +255,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPizzaSelector">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Inforama&#xe7;&#xf5;es pizza:"/>
+        <Property name="text" type="java.lang.String" value="Informa&#xe7;&#xf5;es pizza:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="pizzaSelector">
