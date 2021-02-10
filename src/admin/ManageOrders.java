@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Drink;
 
@@ -17,7 +18,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         initComponents();
         setOrdersList();
         pizzaSelector.setModel(new DefaultComboBoxModel());
-        
+
         pizzaSelector.addActionListener((ActionEvent e) -> {
             String res = (String) pizzaSelector.getSelectedItem();
             String[] idArray = res.split(" ");
@@ -25,8 +26,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             System.out.println(id);
             getSelectedPizza(id);
             setLabelPizzaSize(id);
-            
-            
+
         });
     }
 
@@ -113,6 +113,16 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         setDrinkListFromId(id);
         setSelectPizzaList(id);
 
+    }
+    
+    public void clearAfterUpdateStatus(){
+        clientName.setText("");
+        labelPizzaSize.setText("");
+        pizzaSelector.setModel(new DefaultComboBoxModel());
+        String[] columnNameDrink = {"Bebidas", "Valor"};
+        drinkTable.setModel(new DefaultTableModel(columnNameDrink,0));
+        String[] columnNamePizzas = {"Sabores"};
+        pizzasTable.setModel(new DefaultTableModel(columnNamePizzas,0));
     }
 
     @SuppressWarnings("unchecked")
@@ -214,7 +224,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             }
         });
 
-        labelPizzaSelector.setText("Inforamações pizza:");
+        labelPizzaSelector.setText("Informações pizza:");
 
         pizzaSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         pizzaSelector.addActionListener(new java.awt.event.ActionListener() {
@@ -265,7 +275,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(pizzaSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,6 +324,18 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
 
     private void deliverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliverButtonActionPerformed
         // TODO add your handling code here:
+        OrdersDB orders = new OrdersDB();
+        try {
+            String res = (String) listBox.getSelectedValue();
+            String[] idArray = res.split(" ");
+            String id = idArray[1];
+            orders.setOrderStatus(id);
+            clearAfterUpdateStatus();
+            setOrdersList();
+            JOptionPane.showMessageDialog(null, "Pedido enregue com sucesso!", "Pedido", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_deliverButtonActionPerformed
 
     private void pizzaSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaSelectorActionPerformed

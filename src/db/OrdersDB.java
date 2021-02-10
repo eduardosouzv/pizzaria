@@ -21,17 +21,29 @@ public class OrdersDB {
             return ids;
         }
     }
-    
-    public String getNameFromOrder(String id) throws SQLException, Exception{
-        try(Connection connection = Connect.Database()){
+
+    public String getNameFromOrder(String id) throws SQLException, Exception {
+        try (Connection connection = Connect.Database()) {
             PreparedStatement templateQuery = connection.prepareStatement("SELECT * FROM orders INNER JOIN users ON orders.users_id = users.id WHERE orders.id = ?");
             templateQuery.setString(1, id);
-            
+
             ResultSet response = templateQuery.executeQuery();
-            if(response.next()){
+            if (response.next()) {
                 return response.getString("user");
             }
         }
         return null;
+    }
+
+    public void setOrderStatus(String id) throws SQLException, Exception {
+        try (Connection connection = Connect.Database()) {
+            PreparedStatement templateQuery = connection.prepareStatement("update orders set status = 'ENTREGUE' where id = ?");
+            templateQuery.setString(1, id);
+
+            int response = templateQuery.executeUpdate();
+            if (response <= 0) {
+                throw new Exception("operation failed");
+            }
+        }
     }
 }
