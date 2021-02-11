@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 
 public class UserDB {
 
-    public void addUser(User user) throws SQLException, Exception {
+    public User addUser(User user) throws SQLException, Exception {
         try (Connection connection = Connect.Database()) {
             PreparedStatement templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,?,?,?,?,?)");
             templateQuery.setString(1, user.user);
@@ -24,6 +24,15 @@ public class UserDB {
             if (response <= 0) {
                 throw new Exception("operation failed");
             }
+
+            try (ResultSet generatedKeys = templateQuery.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    user.id = generatedKeys.getInt(1);
+                    return user;
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
         }
     }
 
@@ -37,6 +46,7 @@ public class UserDB {
 
             if (response.next()) {
                 return new User(
+                        Integer.parseInt(response.getString("id")),
                         response.getString("user"),
                         response.getString("password"),
                         response.getString("user_type"),

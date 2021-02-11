@@ -7,9 +7,9 @@ public class Connect {
     
     public static Connection Database(){        
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/pizzaria";
+        String url = "jdbc:mysql://localhost:3306/pizzaria?useSSL=false";
         String user = "root";
-        String password = "root";
+        String password = "153490";
         
         try{
             Class.forName(driver);
