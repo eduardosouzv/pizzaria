@@ -107,22 +107,23 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
     public void getSelectedOrder() {
         String idArray[] = new String[3];
         String res = (String) listBox.getSelectedValue();
-        idArray = res.split(" ");
-        String id = idArray[1];
-        setClientNameLabel(id);
-        setDrinkListFromId(id);
-        setSelectPizzaList(id);
-
+        if (res != null) {
+            idArray = res.split(" ");
+            String id = idArray[1];
+            setClientNameLabel(id);
+            setDrinkListFromId(id);
+            setSelectPizzaList(id);
+        }
     }
-    
-    public void clearAfterUpdateStatus(){
+
+    public void clearAfterUpdateStatus() {
         clientName.setText("");
         labelPizzaSize.setText("");
         pizzaSelector.setModel(new DefaultComboBoxModel());
         String[] columnNameDrink = {"Bebidas", "Valor"};
-        drinkTable.setModel(new DefaultTableModel(columnNameDrink,0));
+        drinkTable.setModel(new DefaultTableModel(columnNameDrink, 0));
         String[] columnNamePizzas = {"Sabores"};
-        pizzasTable.setModel(new DefaultTableModel(columnNamePizzas,0));
+        pizzasTable.setModel(new DefaultTableModel(columnNamePizzas, 0));
     }
 
     @SuppressWarnings("unchecked")
@@ -166,6 +167,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        listBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         orderListPanel.setViewportView(listBox);
 
         titlePedidos.setText("Pedidos");
@@ -323,7 +325,6 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_consultButtonActionPerformed
 
     private void deliverButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deliverButtonActionPerformed
-        // TODO add your handling code here:
         OrdersDB orders = new OrdersDB();
         try {
             String res = (String) listBox.getSelectedValue();
@@ -332,9 +333,9 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             orders.setOrderStatus(id);
             clearAfterUpdateStatus();
             setOrdersList();
-            JOptionPane.showMessageDialog(null, "Pedido enregue com sucesso!", "Pedido", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Pedido entregue com sucesso!", "Pedido", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Nenhum pedido selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_deliverButtonActionPerformed
 
