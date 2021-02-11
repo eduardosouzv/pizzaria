@@ -21,12 +21,12 @@ public class Authentication extends javax.swing.JFrame {
                 screen.setVisible(true);
                 this.dispose();
             } else {
-                ClientScreen screen = new ClientScreen();
+                ClientScreen screen = new ClientScreen(user);
                 screen.setVisible(true);
                 this.dispose();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro na autenticação !", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro na autenticação !", "Erro", JOptionPane.ERROR_MESSAGE);  
         }
     }
 

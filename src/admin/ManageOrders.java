@@ -74,7 +74,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             String[] columnName = {"Bebidas", "Valor"};
             DefaultTableModel model = new DefaultTableModel(columnName, 0);
             for (Drink drink : drinks) {
-                model.addRow(new Object[]{drink.name, drink.value});
+                model.addRow(new Object[]{drink.name, drink.price});
             }
             drinkTable.setModel(model);
         } catch (Exception e) {
