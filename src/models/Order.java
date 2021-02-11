@@ -3,7 +3,7 @@ package models;
 import java.util.List;
 
 public class Order {
-
+    
     public Order(List<Pizza> pizzas, List<Drink> drinks, User user, int id, String status) {
         this.pizzas = pizzas;
         this.drinks = drinks;

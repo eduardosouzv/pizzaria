@@ -200,14 +200,21 @@ public class ClientScreen extends javax.swing.JFrame {
     private void registerFlavours() {
         try {
             int selectedComboBox = boxSizes.getSelectedIndex();
+            PizzaSize pizzasize = sizes.get(selectedComboBox);
+            int[] verificationFlavour = listFlavours.getSelectedIndices();
 
             List<PizzaFlavour> selectedPizzaFlavours = new ArrayList<>();
             for (int index : listFlavours.getSelectedIndices()) {
                 selectedPizzaFlavours.add(flavours.get(index));
             }
-            Pizza pizza = new Pizza(sizes.get(selectedComboBox), selectedPizzaFlavours);
-            order.pizzas.add(pizza);
-            addPizzaToTable();
+
+            if (verificationFlavour.length > pizzasize.max_flavours || verificationFlavour.length == 0) {
+                JOptionPane.showMessageDialog(null, "Escolha entre 1 sabor a " + pizzasize.max_flavours + "!", "Erro", JOptionPane.ERROR_MESSAGE);
+            } else {
+                Pizza pizza = new Pizza(sizes.get(selectedComboBox), selectedPizzaFlavours);
+                order.pizzas.add(pizza);
+                addPizzaToTable();
+            }
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -228,8 +235,13 @@ public class ClientScreen extends javax.swing.JFrame {
     }
 
     private void registerDrinks() {
-        order.drinks.add(drinks.get(listDrinks.getSelectedIndex()));
-        addDrinkToTable();
+        int verificationDrink = listDrinks.getSelectedIndex();
+        if (verificationDrink < 0) {
+            JOptionPane.showMessageDialog(null, "Erro ao registrar a bebida!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            order.drinks.add(drinks.get(listDrinks.getSelectedIndex()));
+            addDrinkToTable();
+        }
     }
 
     private void addPizzaToTable() {
@@ -252,11 +264,14 @@ public class ClientScreen extends javax.swing.JFrame {
         }
         tableFinishDrink.setModel(drinksTable);
     }
-    
-    private void buttonCheckOut(){
+
+    private void buttonCheckOut() {
         OrderDB orderdb = new OrderDB();
         try {
             orderdb.addOrder(order);
+            order = new Order(new ArrayList<>(), new ArrayList<>(), user, "ANDAMENTO");
+            ((DefaultTableModel) tableFinishPizza.getModel()).setRowCount(0);
+            ((DefaultTableModel) tableFinishDrink.getModel()).setRowCount(0);
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Erro ao finalizar pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
