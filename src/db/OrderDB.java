@@ -1,10 +1,10 @@
 package db;
 
-import com.mysql.jdbc.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import models.Drink;
 import models.Order;
 import models.Pizza;
