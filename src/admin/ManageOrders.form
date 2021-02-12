@@ -99,7 +99,7 @@
                       <Component id="orderListPanel" min="-2" pref="180" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="deliverButton" pref="41" max="32767" attributes="0"/>
+                          <Component id="deliverButton" pref="45" max="32767" attributes="0"/>
                           <Component id="consultButton" max="32767" attributes="0"/>
                       </Group>
                   </Group>
