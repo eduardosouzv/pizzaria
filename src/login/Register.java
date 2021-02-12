@@ -48,6 +48,7 @@ public class Register extends javax.swing.JFrame {
                 userdb.addUser(user);
                 JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
+                e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Erro no cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }

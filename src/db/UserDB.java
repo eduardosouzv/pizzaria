@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import models.User;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class UserDB {
 
     public User addUser(User user) throws SQLException, Exception {
         try (Connection connection = Connect.Database()) {
-            PreparedStatement templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,?,?,?,?,?)");
+            PreparedStatement templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             templateQuery.setString(1, user.user);
             templateQuery.setString(2, user.password);
             templateQuery.setString(3, user.user_type);
