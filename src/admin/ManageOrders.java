@@ -38,10 +38,12 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
                 pizzas.add("Pizza " + pizza);
             }
             pizzaSelector.setModel(new DefaultComboBoxModel(pizzas.toArray()));
-            getSelectedPizza(pizzasFromDB.get(0));
-            setLabelPizzaSize(pizzasFromDB.get(0));
+            if (pizzasFromDB.size() > 0) {
+                getSelectedPizza(pizzasFromDB.get(0));
+                setLabelPizzaSize(pizzasFromDB.get(0));
+            }
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
