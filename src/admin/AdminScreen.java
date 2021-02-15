@@ -102,6 +102,7 @@ public class AdminScreen extends javax.swing.JFrame {
 
     private void menuProgressOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuProgressOrdersActionPerformed
         // TODO add your handling code here:
+        ScreenPanel.removeAll();
         ManageOrders managementScreen = new ManageOrders();
         managementScreen.setVisible(true);
         ScreenPanel.add(managementScreen);
@@ -109,6 +110,10 @@ public class AdminScreen extends javax.swing.JFrame {
 
     private void menuDeliveredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuDeliveredActionPerformed
         // TODO add your handling code here:
+        ScreenPanel.removeAll();
+        DeliveredOrders deliveredOrders = new DeliveredOrders();
+        deliveredOrders.setVisible(true);
+        ScreenPanel.add(deliveredOrders);
     }//GEN-LAST:event_menuDeliveredActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
