@@ -27,8 +27,6 @@ public class ClientScreen extends javax.swing.JFrame {
     List<PizzaFlavour> flavours;
     List<PizzaSize> sizes;
     PreparedStatement templateQuery = null;
-    float somaDrink = 0;
-    float somaPizza = 0;
 
     public ClientScreen(User user) {
         this.user = user;
@@ -245,6 +243,7 @@ public class ClientScreen extends javax.swing.JFrame {
                 Pizza pizza = new Pizza(sizes.get(selectedComboBox), selectedPizzaFlavours);
                 order.pizzas.add(pizza);
                 addPizzaToTable();
+                refreshTotal();
             }
 
         } catch (Exception ex) {
@@ -272,6 +271,7 @@ public class ClientScreen extends javax.swing.JFrame {
         } else {
             order.drinks.add(drinks.get(listDrinks.getSelectedIndex()));
             addDrinkToTable();
+            refreshTotal();
         }
     }
 
@@ -283,11 +283,6 @@ public class ClientScreen extends javax.swing.JFrame {
             pizzasTable.addRow(new String[]{pizza.size.description, String.join(",", flavours), String.valueOf(pizza.size.price)});
         }
         tableFinishPizza.setModel(pizzasTable);
-        for (Pizza pizzapay : order.pizzas) {
-            somaPizza += pizzapay.size.price;
-        }
-        float somaTotal = somaDrink + somaPizza;
-        labelTotalPrice.setText(String.valueOf(somaTotal));
         tableFinishPizza.getColumnModel().getColumn(0).setMaxWidth(800);
         tableFinishPizza.getColumnModel().getColumn(2).setMaxWidth(500);
     }
@@ -299,11 +294,6 @@ public class ClientScreen extends javax.swing.JFrame {
             drinksTable.addRow(new String[]{drink.name, String.valueOf(drink.price)});
         }
         tableFinishDrink.setModel(drinksTable);
-        for (Drink drinkpay : order.drinks) {
-            somaDrink += drinkpay.price;
-        } 
-        float somaTotal = somaDrink + somaPizza;
-        labelTotalPrice.setText(String.valueOf(somaTotal));
     }
 
     private void buttonCheckOut() {
@@ -311,12 +301,24 @@ public class ClientScreen extends javax.swing.JFrame {
         try {
             orderdb.addOrder(order);
             order = new Order(new ArrayList<>(), new ArrayList<>(), user, "ANDAMENTO");
+            refreshTotal();
             ((DefaultTableModel) tableFinishPizza.getModel()).setRowCount(0);
             ((DefaultTableModel) tableFinishDrink.getModel()).setRowCount(0);
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Erro ao finalizar pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    private void refreshTotal(){
+        float total = 0;
+        for (Drink drinkpay : order.drinks) {
+            total += drinkpay.price;
+        }       
+        for (Pizza pizzapay : order.pizzas) {
+            total += pizzapay.size.price;
+        }
+        labelTotalPrice.setText(String.valueOf(total));
     }
 
     private void buttonDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDrinksActionPerformed
