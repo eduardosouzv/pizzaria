@@ -1,7 +1,7 @@
 package customer;
 
 import db.DrinksDB;
-import db.OrderDB;
+import db.OrdersDB;
 import db.PizzaFlavoursDB;
 import db.SizesDB;
 import java.sql.PreparedStatement;
@@ -297,7 +297,7 @@ public class ClientScreen extends javax.swing.JFrame {
     }
 
     private void buttonCheckOut() {
-        OrderDB orderdb = new OrderDB();
+        OrdersDB orderdb = new OrdersDB();
         try {
             orderdb.addOrder(order);
             order = new Order(new ArrayList<>(), new ArrayList<>(), user, "ANDAMENTO");
