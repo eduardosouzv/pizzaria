@@ -10,6 +10,7 @@ import models.Drink;
 import models.Order;
 import models.Pizza;
 import models.PizzaFlavour;
+import models.StatisticOrder;
 import models.User;
 
 public class OrdersDB {
@@ -144,5 +145,22 @@ public class OrdersDB {
             connection.close();
         }
 
+    }
+
+    public ArrayList<StatisticOrder> getTopUsers() throws SQLException, Exception {
+        try (Connection connection = Connect.Database()) {
+            PreparedStatement templateQuery = connection.prepareStatement("select users.id, users.user, count(orders.id) as orderCount from orders inner join users on users.id = orders.users_id group by users.id order by orderCount limit 10");
+
+            ResultSet response = templateQuery.executeQuery();
+            ArrayList<StatisticOrder> users = new ArrayList<>();
+            while (response.next()) {
+
+                    String user = response.getString("user");
+                    int orderCount = Integer.parseInt(response.getString("orderCount"));
+                    StatisticOrder statistic = new StatisticOrder(user, orderCount);
+                    users.add(statistic);
+            }
+            return users;
+        }
     }
 }
