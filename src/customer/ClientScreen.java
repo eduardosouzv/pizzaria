@@ -27,6 +27,8 @@ public class ClientScreen extends javax.swing.JFrame {
     List<PizzaFlavour> flavours;
     List<PizzaSize> sizes;
     PreparedStatement templateQuery = null;
+    float somaDrink = 0;
+    float somaPizza = 0;
 
     public ClientScreen(User user) {
         this.user = user;
@@ -54,6 +56,8 @@ public class ClientScreen extends javax.swing.JFrame {
         tableFinishPizza = new javax.swing.JTable();
         labelNameDisplay = new javax.swing.JLabel();
         labelClientLogged = new javax.swing.JLabel();
+        labelTotal = new javax.swing.JLabel();
+        labelTotalPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cliente");
@@ -124,6 +128,11 @@ public class ClientScreen extends javax.swing.JFrame {
         labelClientLogged.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelClientLogged.setText("Olá, ");
 
+        labelTotal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelTotal.setText("TOTAL:");
+
+        labelTotalPrice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,23 +151,23 @@ public class ClientScreen extends javax.swing.JFrame {
                             .addComponent(panelDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(buttonFlavours, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                             .addComponent(buttonDrinks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(311, 311, 311)
-                                .addComponent(buttonCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tablePanelFinishDrink, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(tablePanelFinishPizza, javax.swing.GroupLayout.Alignment.TRAILING))))))
+                                .addComponent(labelTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tablePanelFinishPizza, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tablePanelFinishDrink, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelClientLogged, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(labelClientLogged, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                     .addComponent(labelNameDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,21 +176,24 @@ public class ClientScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelFlavours, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tablePanelFinishPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(tablePanelFinishDrink, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(buttonFlavours, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 7, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonDrinks, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(buttonCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 19, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(tablePanelFinishDrink, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonDrinks, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonCheckOut, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,6 +283,11 @@ public class ClientScreen extends javax.swing.JFrame {
             pizzasTable.addRow(new String[]{pizza.size.description, String.join(",", flavours), String.valueOf(pizza.size.price)});
         }
         tableFinishPizza.setModel(pizzasTable);
+        for (Pizza pizzapay : order.pizzas) {
+            somaPizza += pizzapay.size.price;
+        }
+        float somaTotal = somaDrink + somaPizza;
+        labelTotalPrice.setText(String.valueOf(somaTotal));
         tableFinishPizza.getColumnModel().getColumn(0).setMaxWidth(800);
         tableFinishPizza.getColumnModel().getColumn(2).setMaxWidth(500);
     }
@@ -282,6 +299,11 @@ public class ClientScreen extends javax.swing.JFrame {
             drinksTable.addRow(new String[]{drink.name, String.valueOf(drink.price)});
         }
         tableFinishDrink.setModel(drinksTable);
+        for (Drink drinkpay : order.drinks) {
+            somaDrink += drinkpay.price;
+        } 
+        float somaTotal = somaDrink + somaPizza;
+        labelTotalPrice.setText(String.valueOf(somaTotal));
     }
 
     private void buttonCheckOut() {
@@ -317,6 +339,8 @@ public class ClientScreen extends javax.swing.JFrame {
     private javax.swing.JButton buttonFlavours;
     private javax.swing.JLabel labelClientLogged;
     private javax.swing.JLabel labelNameDisplay;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JLabel labelTotalPrice;
     private javax.swing.JList listDrinks;
     private javax.swing.JList listFlavours;
     private javax.swing.JScrollPane panelDrinks;
