@@ -28,6 +28,15 @@ public class Register extends javax.swing.JFrame {
         }
     }
 
+    public boolean isBig(String s) {
+        try {
+            Long.parseLong(s);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void register() {
 
         if (textUser.getText().length() == 0) {
@@ -42,9 +51,11 @@ public class Register extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bairro em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else if (textCity.getText().length() == 0) {
             JOptionPane.showMessageDialog(null, "Cidade em branco.", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else if (!isBig(textTelephone.getText()) || textTelephone.getText().length() != 11) {
+            JOptionPane.showMessageDialog(null, "Telefone inválido. Tente no formado 47998787654", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                User user = new User(textUser.getText(), String.valueOf(textPassword.getPassword()), "CLIENT", textStreet.getText(), Integer.valueOf(textNumber.getText()), textDistrict.getText(), textCity.getText());
+                User user = new User(textUser.getText(), String.valueOf(textPassword.getPassword()), "CLIENT", textStreet.getText(), Integer.valueOf(textNumber.getText()), textDistrict.getText(), textCity.getText(), Long.parseLong(textTelephone.getText()));
                 UserDB userdb = new UserDB();
                 userdb.addUser(user);
                 JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
@@ -78,6 +89,8 @@ public class Register extends javax.swing.JFrame {
         buttonRegister = new javax.swing.JButton();
         buttonClose = new javax.swing.JButton();
         textPassword = new javax.swing.JPasswordField();
+        labelTel = new javax.swing.JLabel();
+        textTelephone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro");
@@ -139,6 +152,10 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
+        labelTel.setText("Telefone");
+
+        textTelephone.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,17 +180,22 @@ public class Register extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(buttonRegister))
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(labelStreet)
-                                .addComponent(labelNumber)
-                                .addComponent(labelCity))
-                            .addGap(28, 28, 28)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textCity, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textDistrict, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelStreet)
+                                    .addComponent(labelNumber)
+                                    .addComponent(labelCity))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(labelTel)
+                                    .addGap(4, 4, 4)))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textCity, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                .addComponent(textDistrict, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                .addComponent(textStreet, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                .addComponent(textNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                                .addComponent(textTelephone)))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,11 +228,15 @@ public class Register extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelCity)
                     .addComponent(textCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonRegister)
                     .addComponent(buttonClose))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -288,12 +314,14 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel labelNumber;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JLabel labelStreet;
+    private javax.swing.JLabel labelTel;
     private javax.swing.JLabel labelUser;
     private javax.swing.JTextField textCity;
     private javax.swing.JTextField textDistrict;
     private javax.swing.JTextField textNumber;
     private javax.swing.JPasswordField textPassword;
     private javax.swing.JTextField textStreet;
+    private javax.swing.JTextField textTelephone;
     private javax.swing.JTextField textUser;
     private javax.swing.JLabel titleAddress;
     private javax.swing.JLabel titleUserRegister;

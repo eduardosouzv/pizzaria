@@ -81,8 +81,9 @@ public class OrdersDB {
                 int address_number = response.getInt("address_number");
                 String address_district = response.getString("address_district");
                 String address_city = response.getString("address_city");
+                long telephone = response.getLong("telephone");
 
-                User user = new User(username, null, user_type, address_street, address_number, address_district, address_city);
+                User user = new User(username, null, user_type, address_street, address_number, address_district, address_city, telephone);
                 return user;
             }
         }
@@ -155,10 +156,10 @@ public class OrdersDB {
             ArrayList<StatisticOrder> users = new ArrayList<>();
             while (response.next()) {
 
-                    String user = response.getString("user");
-                    int orderCount = Integer.parseInt(response.getString("orderCount"));
-                    StatisticOrder statistic = new StatisticOrder(user, orderCount);
-                    users.add(statistic);
+                String user = response.getString("user");
+                int orderCount = Integer.parseInt(response.getString("orderCount"));
+                StatisticOrder statistic = new StatisticOrder(user, orderCount);
+                users.add(statistic);
             }
             return users;
         }
