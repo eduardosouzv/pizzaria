@@ -49,22 +49,29 @@
                           <Component id="buttonRegister" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelStreet" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelNumber" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelCity" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelStreet" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelNumber" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="labelCity" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelTel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textCity" min="-2" pref="146" max="-2" attributes="0"/>
-                              <Component id="textDistrict" min="-2" pref="146" max="-2" attributes="0"/>
-                              <Component id="textStreet" min="-2" pref="146" max="-2" attributes="0"/>
-                              <Component id="textNumber" min="-2" pref="146" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="textCity" pref="146" max="32767" attributes="0"/>
+                              <Component id="textDistrict" pref="146" max="32767" attributes="0"/>
+                              <Component id="textStreet" pref="146" max="32767" attributes="0"/>
+                              <Component id="textNumber" pref="146" max="32767" attributes="0"/>
+                              <Component id="textTelephone" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace pref="38" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -105,12 +112,17 @@
                   <Component id="labelCity" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textCity" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="textTelephone" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelTel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonRegister" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonClose" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -201,6 +213,16 @@
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textPassword">
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelTel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Telefone"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textTelephone">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

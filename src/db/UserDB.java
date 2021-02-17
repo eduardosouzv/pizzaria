@@ -12,7 +12,7 @@ public class UserDB {
 
     public User addUser(User user) throws SQLException, Exception {
         try (Connection connection = Connect.Database()) {
-            PreparedStatement templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city) VALUES (?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement templateQuery = connection.prepareStatement("INSERT INTO users(user,password,user_type,address_street,address_number,address_district,address_city,telephone) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             templateQuery.setString(1, user.user);
             templateQuery.setString(2, user.password);
             templateQuery.setString(3, user.user_type);
@@ -20,6 +20,7 @@ public class UserDB {
             templateQuery.setInt(5, user.address_number);
             templateQuery.setString(6, user.address_district);
             templateQuery.setString(7, user.address_city);
+            templateQuery.setLong(8, user.telephone);
 
             try {
                 int response = templateQuery.executeUpdate();
@@ -59,7 +60,9 @@ public class UserDB {
                         response.getString("address_street"),
                         Integer.parseInt(response.getString("address_number")),
                         response.getString("address_district"),
-                        response.getString("address_city"));
+                        response.getString("address_city"),
+                        response.getLong("telephone")
+                );
             } else {
                 throw new Exception("operation failed");
             }
