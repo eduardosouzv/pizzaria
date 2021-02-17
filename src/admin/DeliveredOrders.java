@@ -125,6 +125,7 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
                 street.setText(user.address_street);
                 number.setText(String.valueOf(user.address_number));
                 district.setText(user.address_district);
+                telephone.setText(String.valueOf(user.telephone));
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -153,6 +154,8 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
         street = new javax.swing.JLabel();
         district = new javax.swing.JLabel();
         number = new javax.swing.JLabel();
+        labelTelephone = new javax.swing.JLabel();
+        telephone = new javax.swing.JLabel();
 
         listOrders.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -217,15 +220,18 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
 
         number.setText("jLabel1");
 
+        labelTelephone.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTelephone.setText("Telefone:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(pane))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonSearch)
+                    .addComponent(pane, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTitle)
@@ -235,7 +241,7 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
                             .addComponent(district)
                             .addComponent(number)
                             .addComponent(street))
-                        .addGap(73, 73, 73)
+                        .addGap(83, 83, 83)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelInfoPizza)
@@ -249,9 +255,13 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelClient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(name))
+                        .addComponent(name)
+                        .addGap(30, 30, 30)
+                        .addComponent(labelTelephone)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(telephone))
                     .addComponent(labelAddress))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -266,7 +276,9 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelClient)
-                                    .addComponent(name))
+                                    .addComponent(name)
+                                    .addComponent(labelTelephone)
+                                    .addComponent(telephone))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelAddress)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -311,6 +323,7 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labelInfoPizza;
     private javax.swing.JLabel labelPizzaSize;
     private javax.swing.JLabel labelTamanho;
+    private javax.swing.JLabel labelTelephone;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JList listOrders;
     private javax.swing.JLabel name;
@@ -320,5 +333,6 @@ public final class DeliveredOrders extends javax.swing.JInternalFrame {
     private javax.swing.JTable pizzasTable;
     private javax.swing.JLabel street;
     private javax.swing.JTable tableDrinks;
+    private javax.swing.JLabel telephone;
     // End of variables declaration//GEN-END:variables
 }
