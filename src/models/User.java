@@ -1,7 +1,5 @@
 package models;
 
-import java.math.BigInteger;
-
 public class User {
 
     public int id;

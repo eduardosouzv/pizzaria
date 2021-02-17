@@ -6,7 +6,6 @@ import db.UserDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-import login.Authentication;
 import models.User;
 
 public class Register extends javax.swing.JFrame {
