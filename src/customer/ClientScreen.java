@@ -130,6 +130,7 @@ public class ClientScreen extends javax.swing.JFrame {
         labelTotal.setText("TOTAL:");
 
         labelTotalPrice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelTotalPrice.setText("R$ ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -299,11 +300,15 @@ public class ClientScreen extends javax.swing.JFrame {
     private void buttonCheckOut() {
         OrdersDB orderdb = new OrdersDB();
         try {
+            if(order.pizzas.isEmpty() && order.drinks.isEmpty()){
+                throw new Exception();
+            }
             orderdb.addOrder(order);
             order = new Order(new ArrayList<>(), new ArrayList<>(), user, "ANDAMENTO");
             refreshTotal();
             ((DefaultTableModel) tableFinishPizza.getModel()).setRowCount(0);
             ((DefaultTableModel) tableFinishDrink.getModel()).setRowCount(0);
+            JOptionPane.showMessageDialog(null, "Pedido efetuado!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Erro ao finalizar pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -318,7 +323,7 @@ public class ClientScreen extends javax.swing.JFrame {
         for (Pizza pizzapay : order.pizzas) {
             total += pizzapay.size.price;
         }
-        labelTotalPrice.setText(String.valueOf(total));
+        labelTotalPrice.setText("R$ " + String.valueOf(total));
     }
 
     private void buttonDrinksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDrinksActionPerformed
