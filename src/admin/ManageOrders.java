@@ -23,7 +23,6 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             String res = (String) pizzaSelector.getSelectedItem();
             String[] idArray = res.split(" ");
             String id = idArray[1];
-            System.out.println(id);
             getSelectedPizza(id);
             setLabelPizzaSize(id);
 
@@ -107,6 +106,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
     }
 
     public void getSelectedOrder() {
+        clear();
         String idArray[] = new String[3];
         String res = (String) listBox.getSelectedValue();
         if (res != null) {
@@ -118,7 +118,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
         }
     }
 
-    public void clearAfterUpdateStatus() {
+    public void clear() {
         clientName.setText("");
         labelPizzaSize.setText("");
         pizzaSelector.setModel(new DefaultComboBoxModel());
@@ -333,7 +333,7 @@ public final class ManageOrders extends javax.swing.JInternalFrame {
             String[] idArray = res.split(" ");
             String id = idArray[1];
             orders.setOrderStatus(id);
-            clearAfterUpdateStatus();
+            clear();
             setOrdersList();
             JOptionPane.showMessageDialog(null, "Pedido entregue com sucesso!", "Pedido", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
