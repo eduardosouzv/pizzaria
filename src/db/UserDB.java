@@ -1,5 +1,6 @@
 package db;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,10 +21,14 @@ public class UserDB {
             templateQuery.setString(6, user.address_district);
             templateQuery.setString(7, user.address_city);
 
-            int response = templateQuery.executeUpdate();
+            try {
+                int response = templateQuery.executeUpdate();
 
-            if (response <= 0) {
-                throw new Exception("operation failed");
+                if (response <= 0) {
+                    throw new Exception("operation failed");
+                }
+            } catch (SQLException e) {
+                throw new MySQLIntegrityConstraintViolationException();
             }
 
             try (ResultSet generatedKeys = templateQuery.getGeneratedKeys()) {

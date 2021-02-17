@@ -1,5 +1,6 @@
 package login;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import db.Connect;
 import db.UserDB;
 import java.sql.Connection;
@@ -47,8 +48,10 @@ public class Register extends javax.swing.JFrame {
                 UserDB userdb = new UserDB();
                 userdb.addUser(user);
                 JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso!", "Cadastrado", JOptionPane.INFORMATION_MESSAGE);
+            } catch (MySQLIntegrityConstraintViolationException se) {
+                JOptionPane.showMessageDialog(null, "Usuario existente.", "Erro", JOptionPane.ERROR_MESSAGE);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e);
                 JOptionPane.showMessageDialog(null, "Erro no cadastro.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
